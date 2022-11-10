@@ -1,9 +1,8 @@
-# Traffic violation type classification 
+# Traffic Violation Type Prediction Service
 
 Project done in partial fulfilment for the certification of MLZoomcamp2022 by DataTalks.Club. Details can be found [here](https://github.com/alexeygrigorev/mlbookcamp-code/blob/master/course-zoomcamp/cohorts/2022/projects.md#midterm-project).
 
-
-# Problem:
+# Problem
 
 Classify a traffic violation into 4 categories based on the level, severity and type of violation. The 4 different types of violations are:
 
@@ -12,16 +11,15 @@ Classify a traffic violation into 4 categories based on the level, severity and 
 - **ESERO:** Electronic Safety Equipment Repair Order
 - **SERO:** Safety Equipment Repair Order
 
-The data is from Maryland Capitol Police Department.The mojor challenge of the problem is working almost entirely with categorical variables and very high cardinality of features. 
+The data is from Maryland Capitol Police Department.The mojor challenge of the problem is working almost entirely with categorical variables and very high cardinality of features.
 
-# Dataset: 
+# Dataset
 
 The original dataset can be found [here](https://www.kaggle.com/datasets/felix4guti/traffic-violations-in-usa?select=Traffic_Violations.csv) on Kaggle.
 
 This dataset is very untidy, so a cleaned version after doing cleaning and EDA in this [notebook](./TrafficViolation_Clean_EDA%20final.ipynb) can be found [here](https://github.com/MemoonaTahira/Traffic_Violation_Classification/releases/download/latest/cleaned_traffic_violations.csv). Dataset download links are added to all code file.
 
-
-These are dataset stats after initial cleaning and feature engineering (basically everything that needs to be done before train-test split). 
+These are dataset stats after initial cleaning and feature engineering (basically everything that needs to be done before train-test split).
 
 <img src = "./imgs/dataset_stats.jpg">
 
@@ -29,16 +27,16 @@ The dimensions of the dataset are: `Dataframe dimensions: (1010737, 28)`
 
 **The major work done on features:**
 
- - Removing duplicates
- - Reomving description of location in words(whose logitude/latitude are given), longitude, latitude and geolocation (which was a tuple of logitude and latitude), in favour of subagency, which basically denotes 7 zones where traffic violations were recorded. In absense of subagency, geolocation would have to be binned into zones. 
- - Removing features such as agency and accident that had only one value/category.
- - Lowercasing column names and string variable
- - Converting bool columns to 0 and 1 
- - Converting date to seasons by binning months, called season_of_stop
- - Convrting time to portion of day called hour_of_stop, e.g. late night or afternoon, using binning on hours.
- - Removing anamoly from year of car, e.g. year below 0 or beyond 2022, and converting it to car_age
+- Removing duplicates
+- Reomving description of location in words(whose logitude/latitude are given), longitude, latitude and geolocation (which was a tuple of logitude and latitude), in favour of subagency, which basically denotes 7 zones where traffic violations were recorded. In absense of subagency, geolocation would have to be binned into zones.
+- Removing features such as agency and accident that had only one value/category.
+- Lowercasing column names and string variable
+- Converting bool columns to 0 and 1
+- Converting date to seasons by binning months, called season_of_stop
+- Convrting time to portion of day called hour_of_stop, e.g. late night or afternoon, using binning on hours.
+- Removing anamoly from year of car, e.g. year below 0 or beyond 2022, and converting it to car_age
 
-**On target variable:** 
+**On target variable:**
 
 The traffic_violation is the target variable with 4 values:
 
@@ -54,9 +52,9 @@ Since sero is not even 0.01 of the dataset, it is combined with esero, which its
 
 <img src = "./imgs/class_imbalance.png" width=50%>
 
-# Methodology:
+# Methodology
 
-The methodology followed is CRISP-DM, with roughly the same outline as week 1-7 of [MLZoomcamp](https://github.com/alexeygrigorev/mlbookcamp-code/tree/master/course-zoomcamp). 
+The methodology followed is CRISP-DM, with roughly the same outline as week 1-7 of [MLZoomcamp](https://github.com/alexeygrigorev/mlbookcamp-code/tree/master/course-zoomcamp).
 
 We start with data cleaing and EDA, and then feature engineering and feature selection, while doing doing missing value imputations, scaling, one-hot encoding and dimensionality reduction.
 
@@ -66,7 +64,7 @@ Finally, the model is containerized with BentoML and deployed as a classificatio
 
 Full workflow [here](./TrafficViolation_Clean_EDA%20final.ipynb) in this jupyter notebook.
 
-# Reproducibility:
+# Reproducibility
 
 The whole project is reproducible, ideally via bentoML. Here are details how to recreate the project at every step:
 
@@ -94,7 +92,6 @@ Run the final_train.py file to train the best model with tuned parameters on the
 
 `python final_Train.py`
 
-
 It will save these items:
 
 - xgboost_traffic_violation_model.sav
@@ -115,7 +112,6 @@ bentoml serve service.py:svc --reload
 
 This step tests the bentoML model before converting it to a service. This step is great for development as the service automatically keep reloading to reflect any changes.
 
-
 ## 5. Build the BentoML service and serve it locally:
 
 First, get list of models stored in the bentoml models directory
@@ -128,14 +124,13 @@ Get name and tag of the model you want, e.g. in my case:
 
 Use you own model name and tag in [service.py](./service.py) in line 9, and make sure to use it with quotes included, i.e. `"traffic_violation_classification:c3zxrptavo3q4vhb"`
 
-
 Build the bentoML service.
 
 `bentoml build`
 
-And you'll see this: 
+And you'll see this:
 
-<img src = "./imgs/bentobuild.jpg"> 
+<img src = "./imgs/bentobuild.jpg">
 
 Serve the container by running this is the terminal:
 
@@ -143,7 +138,7 @@ Serve the container by running this is the terminal:
 
 Now you can test your bentoML service now running a classification service locally.
 
-## 6. Using Swagger UI once the service is runnnig locally
+## 6. Using Swagger UI once the service is runnnig locally:
 
 Go to any browser and open this link: 0.0.0.0:3000 OR localhost:3000
 
@@ -189,7 +184,7 @@ You should see a result like this:
 
 <img src = "./imgs/swagger3.jpg">
 
-## 7. Do load testing with locust
+## 7. Do load testing with locust:
 
 open another tab in your browser while the `bentoml serve --production` command is running from terminal and run:
 
@@ -203,6 +198,7 @@ Start your docker service:
 `sudo dockerd`
 
 Open a new terminal tab and build your bentoML container:
+
 ```
 cd bentoml/bentos/
 tree
@@ -218,13 +214,11 @@ It will take a moment to build the container. Once it is done, serve the contain
 
 Test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
 
-
-
-## 10. Deployment of bentoML as a service to Cloud: 
+## 9. Deployment of bentoML as a service to Cloud:
 
 I will deploy my docker image (traffic_violation_classifier:ga4yxpdbbc676aav) from step 8 to Mobegeniu, but for that I need to first push my image to DockerHub.
 
-## 11: Setting up DockerHub
+## 10: Setting up DockerHub:
 
 - Create an account and verify it
 - Choose free plan and create a repository with a name that reflects your service, e.g. traffic_violation_classification
@@ -240,9 +234,9 @@ I will deploy my docker image (traffic_violation_classifier:ga4yxpdbbc676aav) fr
 `docker push <hub-user>/<repo-name>[:<tag>]`
 - In my case it looks like this:
 `docker push memoonatahira/traffic_violation_classification:deployment_testing`
-- It'll take a moment and you'll be done! 
+- It'll take a moment and you'll be done!
 
-## 12. Pull bentoML service docker image from DockerHub and run it
+## 11. Pull bentoML service docker image from DockerHub and run it:
 
 You can skip all the previous steps, and just pull the bentoML image from DockerHub and build a container and run it via docker like this:
 
@@ -253,10 +247,9 @@ docker run -it --rm -p 3000:3000 memoonatahira/traffic_violation_classification:
 
 Test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
 
+## 12. Deploy the BentoML container to Mogenius:
 
-## 11. Deploy the BentoML container to Mobegenius:
-
-- Create an account on Mobegenius: https://studio.mogenius.com/user/registration
+- Create an account on Mobegenius: <https://studio.mogenius.com/user/registration>
 - Verfiy your account and select the free plan
 - Create a cloud space with a reflective name, e.g. TrafficViolation
 - Choose Create from docker image from any registry
@@ -265,7 +258,16 @@ Test it using same steps as before from [here](#6-using-swagger-ui-once-the-serv
 - Select **Stage** as "production" and leave everything as is
 - Add 3000 to HTTPS port at the very end and hit **"Create Service"**
 - Increase the resources (I set all reseources to maximum) for your service and click on **"Save Changes"**
+- You should see something like this:
+
+<img src = "./imgs/mogenius_service_status.jpg" width = 80%, height= 80%>
+
 - Click on **"HostName"** in the top right, and click on External domain, and it should be up and running here:
- https://traffic-violat-prod-trafficviolation-oqe5ed.mo5.mogenius.io/
+ <https://traffic-violat-prod-trafficviolation-oqe5ed.mo5.mogenius.io/>
 - Test the service: It will open the familiar Swaggr UI and you can test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
+
+<img src = "./imgs/mogenius_deployed_swagger.jpg" width = 80%, height= 80%>
+
+All done. :)
+
 
