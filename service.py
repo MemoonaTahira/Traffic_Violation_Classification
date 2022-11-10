@@ -10,8 +10,6 @@ from pydantic import BaseModel
 
 model_name_and_tag = "traffic_violation_classification:wvsmj6dbeol4qaav"
 # pydantic class for data validation
-
-
 class TrafficViolationApp(BaseModel):
     subagency: str
     belts: int
@@ -50,11 +48,12 @@ model_pipeline = model_ref.custom_objects['model_pipeline']
 
 # model runner is bentoml's abstraction of the model itself, helps us access the model
 model_runner = model_ref.to_runner()
-svc = bentoml.Service("traffic_violation_classifier", runners=[model_runner])
+svc = bentoml.Service("traffic_violation_classifier", runners = [model_runner])
 
 
 # the decorater allows us to use rest and curl APIs
-@svc.api(input=JSON(pydantic_model=TrafficViolationApp), output=JSON())
+@svc.api (input =JSON(pydantic_model= TrafficViolationApp), output=JSON())
+
 # def classify(application_data):
 # adding async parallelizes at the endpoint level
 # async def classify(traffic_violation):
@@ -62,11 +61,12 @@ async def classify(input_series: TrafficViolationApp) -> Dict[str, any]:
     # credit_application is an object of class CreditApplication
     # application data is a dict object, and incase we used @svc.api (input =JSON(), output=JSON()),
     # we could pass it to classify and use it without converting
-    # application_data = traffic_violation.dict()
+    # application_data = traffic_violation.dict() 
 
     input_df = pd.DataFrame([input_series.dict()])
     # vector = model_pipeline.transform(application_data)
     vector = model_pipeline.transform(input_df)
+
 
     # prediction = model_runner.predict.run(vector)
     # also async at inference level, the runner abstraction here is doing microbatching, i.e. like a test set
@@ -77,12 +77,13 @@ async def classify(input_series: TrafficViolationApp) -> Dict[str, any]:
     prediction = await model_runner.predict.async_run(vector)
     print("the prediction is:", prediction)
     result = prediction[0]
-    if result == 0:
+    if result==0:
         return {"status": "Citation"}
     elif result == 1:
-        return {"status": "Warning"}
-    elif result == 2:
-        return {"status": "ERO"}
+        return{"status":"Warning"}
+    elif result == 2: 
+        return{"status":"ERO"}
+
 
     return {"status": "Unknown"}
 

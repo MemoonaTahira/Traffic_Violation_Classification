@@ -10,3 +10,5 @@ python:
     - xgboost
     - pandas
     - pydantic
+
+
