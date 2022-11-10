@@ -1,4 +1,4 @@
-# Week 7: Production-ready ML Models with BentoML
+# Traffic violation type classification 
 
 Project done in partial fulfilment for the certification of MLZoomcamp2022 by DataTalks.Club. Details can be found [here](https://github.com/alexeygrigorev/mlbookcamp-code/blob/master/course-zoomcamp/cohorts/2022/projects.md#midterm-project).
 
