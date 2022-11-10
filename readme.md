@@ -245,8 +245,8 @@ I will deploy my docker image (traffic_violation_classifier:ga4yxpdbbc676aav) fr
 You can skip all the previous steps, and just pull the bentoML image from DockerHub and build a container and run it via docker like this:
 
 ```
-docker pull MemoonaTahira/traffic_violation_classification
-docker run -it --rm -p 3000:3000 traffic_violation_classifier:ga4yxpdbbc676aav serve 
+docker pull memoonatahira/traffic_violation_classification:deployment_testing
+docker run -it --rm -p 3000:3000 memoonatahira/traffic_violation_classification:deployment_testing serve
 ```
 
 Test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
@@ -254,16 +254,19 @@ Test it using same steps as before from [here](#6-using-swagger-ui-once-the-serv
 
 ## 11. Deploy the BentoML container to Mobegenius:
 
-    - create an account on Mobegenius: https://studio.mogenius.com/user/registration
-    - verfiy yuor account and select the free plan
-    - Create a cloud space with a reflective name, e.g. TrafficViolation
-    - Choose create from docker image from any registry
-    - Connect to your docker hub registry. See note below for setting up DockerHub
-    - Follow this tutorial exactly: https://www.youtube.com/watch?v=NMIi_DDVxAs&list=PL3MmuxUbc_hIhxl5Ji8t4O6lPAOpHaCLR&index=96
-    - And you have deployed your bentoML container with a Swagger UI in AWS. You can then test if the traffic violation classification service inside the container is working properly by using the sample user data to get a prediction.
-    - You should see the same prediction of 'citation' like this:
+- Create an account on Mobegenius: https://studio.mogenius.com/user/registration
+- Verfiy yuor account and select the free plan
+- Create a cloud space with a reflective name, e.g. TrafficViolation
+- Choose Create from docker image from any registry
+- Give the service a name, and then add address of your image. E.g.
+`memoonatahira/traffic_violation_classification:deployment_testing serve`
+- Select **Stage** as "production" and leave everything as is
+- Add 3000 to HTTPS port at the very end and hit **"Create Service"**
+- Increase the resources (I set all reseources to maximum) for your service and click on **"Save Changes"**
+- Click on **"HostName"** in the top right, and click on External domain, and it should be up and running.
+- Test the service: It will open the familiar Swaggr UI and you can test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
 
-    <img src = "./imgs/aws">
+<img src = "./imgs/aws">
 
 
 
