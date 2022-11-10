@@ -97,9 +97,11 @@ Run the final_train.py file to train the best model with tuned parameters on the
 
 It will save these items:
 
-    - [xgboost_traffic_violation_model.sav](./xgboost_traffic_violation_model.sav) 
-    - [sklearn_pipeline.pkl](./sklearn_pipeline.pkl)
-    - bentoML model with both the xgboost final model and custom pipeline object
+- xgboost_traffic_violation_model.sav
+- sklearn_pipeline.pkl
+- bentoML model with both the xgboost final model and custom pipeline object
+
+The first two are for reference to avoid complete retraining, but the last model is the one we will use throughout in the next steps.
 
 Check that your model saved correctly by running `bentoml models list`
 
