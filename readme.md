@@ -103,14 +103,15 @@ It will save these items:
 
 Check that your model saved correctly by running `bentoml models list`
 
-<!-- ## 4. (Optional) Build the BentoML model and serve it locally:
+## 4. (Optional) Build the BentoML model and serve it locally:
 
 Run from terminal with conda env traffic_classify activated:
 
 ```
 bentoml serve service.py:svc --reload
 ```
-This step tests the bentoML model before converting it to a service.  -->
+
+This step tests the bentoML model before converting it to a service. This step is great for development as the service automatically keep reloading to reflect any changes.
 
 
 ## 5. Build the BentoML service and serve it locally:
@@ -136,7 +137,7 @@ And you'll see this:
 
 Serve the container by running this is the terminal:
 
-`bentoml serve --production`
+`bentoml serve`
 
 Now you can test your bentoML service now running a classification service locally.
 
@@ -197,42 +198,61 @@ Do load testing if you want to see if the model can handle appopriate load befor
 ## 8. Dockerize the bentoML service:
 
 Start your docker service:
-`sudo dockerd &`
+`sudo dockerd`
 
-Build your bentoML container:
+Open a new terminal tab and build your bentoML container:
 ```
 cd bentoml/bentos/
 tree
 # copy name and tag of the service we built in step 5:
-# Note: Models are located in /bentoml/models and have a different name and tag from BentoML services that are located in: 
-# /bentoml/bentos
-
- bentoml containerize traffic_violation_classifier:ga4yxpdbbc676aav
+# Note: Models are located in /bentoml/models and have a different name and tag from BentoML services that are
+# located in /bentoml/bentos
+bentoml containerize traffic_violation_classifier:ga4yxpdbbc676aav
 ```
 
 It will take a moment to build the container. Once it is done, serve the container locally:
 
-`docker run -it --rm -p 3000:3000 traffic_violation_classifier:ga4yxpdbbc676aav serve --production`
+`docker run -it --rm -p 3000:3000 traffic_violation_classifier:ga4yxpdbbc676aav serve`
 
 Test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
 
-## 9. Pull bentoML service docker image from DockerHub and run it:
+
+
+## 10. Deployment of bentoML as a service to Cloud: 
+
+I will deploy my docker image (traffic_violation_classifier:ga4yxpdbbc676aav) from step 8 to Mobegeniu, but for that I need to first push my image to DockerHub.
+
+## 11: Setting up DockerHub
+
+- Create an account and verify it
+- Choose free plan and create a repository with a name that reflects your service, e.g. traffic_violation_classification
+- Go to your username in the top righ of the DockerHub tab, and go to Account Setting, go to security and generate a new access token.
+- From your local terminal, with sudo dockerd running, run the following:
+- Enter `docker login -u username` from terminal and then enter access token when asked for password.
+- Once you are authenticated, run `docker images` to find a list of docker images available.
+- Next retag the image like this:
+`docker tag <existing-image> <hub-user>/<repo-name>[:<tag>]`
+- E.g. in my case it would look like this:
+`docker tag traffic_violation_classifier:tr32cwtbfs7viaav memoonatahira/traffic_violation_classification:deployment_testing`
+- Push the image to DockerHub:
+`docker push <hub-user>/<repo-name>[:<tag>]`
+- In my case it looks like this:
+`docker push memoonatahira/traffic_violation_classification:deployment_testing`
+- It'll take a moment and you'll be done! 
+
+## 12. Pull bentoML service docker image from DockerHub and run it
 
 You can skip all the previous steps, and just pull the bentoML image from DockerHub and build a container and run it via docker like this:
 
 ```
 docker pull MemoonaTahira/traffic_violation_classification
-docker run -it --rm -p 3000:3000 traffic_violation_classifier:ga4yxpdbbc676aav serve --production
+docker run -it --rm -p 3000:3000 traffic_violation_classifier:ga4yxpdbbc676aav serve 
 ```
+
 Test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
 
-## 10. Deployment of bentoML as a service to Cloud: 
 
-The bentoML container which can be found in `/home/user/bentoml/bentos` can be deployed to any cloud service as it is. 
-
-<!-- Or to docker registry? -->
-
-<!-- ## 11. Deploy the BentoML container to Mobegenius:
+## 11. Deploy the BentoML container to Mobegenius:
 
     - create an account on Mobegenius: https://studio.mogenius.com/user/registration
     - verfiy yuor account and select the free plan
@@ -246,14 +266,6 @@ The bentoML container which can be found in `/home/user/bentoml/bentos` can be d
     <img src = "./imgs/aws">
 
 
-## 12. Setting up DockerHub:
 
-    - Create an account and verify it
-    - Choose free plan and create a repository with a name that reflects your service, e.g. traffic_violation_classification
-    - From your local terminal, with sudo dockerd running, run the following:
-    `docker commit <existing-container> <hub-user>/<repo-name>[:<tag>]`
-    - E.g. in my case it would look like this:
+Phew! All done.
 
-    - It will ask for the DockerHub username and password you used during signup, provide it and push image to your Repo. 
-    - Done! :)
- -->
