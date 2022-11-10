@@ -1,2 +1,2 @@
-# Traffic_Violation_Classification
+# Traffic Violation Classification
 MLZoomcamp Mids Project
