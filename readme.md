@@ -106,8 +106,7 @@ Using the newly created conda environement, explore the notebook for cleaning, E
 
 Have a look at model pipelines (Logistic Regression, Random Forest and XGBoost) and detailed results [here](./results.md).
 
-<p align="center">
-  <img src="./imgs/result-logo.png" height="50" /></a>
+<p align="center"> <a href="https://github.com/MemoonaTahira/Traffic_Violation_Classification/blob/main/results.md"><img src="./imgs/result-logo.png" height="50" /></a>
 </p>
 
 ## 3. Train the final model:
