@@ -255,7 +255,7 @@ Test it using same steps as before from [here](#6-using-swagger-ui-once-the-serv
 ## 11. Deploy the BentoML container to Mobegenius:
 
 - Create an account on Mobegenius: https://studio.mogenius.com/user/registration
-- Verfiy yuor account and select the free plan
+- Verfiy your account and select the free plan
 - Create a cloud space with a reflective name, e.g. TrafficViolation
 - Choose Create from docker image from any registry
 - Give the service a name, and then add address of your image. E.g.
@@ -264,11 +264,11 @@ Test it using same steps as before from [here](#6-using-swagger-ui-once-the-serv
 - Add 3000 to HTTPS port at the very end and hit **"Create Service"**
 - Increase the resources (I set all reseources to maximum) for your service and click on **"Save Changes"**
 - Click on **"HostName"** in the top right, and click on External domain, and it should be up and running.
-- Test the service: It will open the familiar Swaggr UI and you can test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
+
+
+<-- - Test the service: It will open the familiar Swaggr UI and you can test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
 
 <img src = "./imgs/aws">
 
-
-
-Phew! All done.
+Phew! All done. -->
 
