@@ -263,12 +263,11 @@ Test it using same steps as before from [here](#6-using-swagger-ui-once-the-serv
 - Select **Stage** as "production" and leave everything as is
 - Add 3000 to HTTPS port at the very end and hit **"Create Service"**
 - Increase the resources (I set all reseources to maximum) for your service and click on **"Save Changes"**
-- Click on **"HostName"** in the top right, and click on External domain, and it should be up and running.
+- Click on **"HostName"** in the top right, and click on External domain, and it should be up and running here:
+ https://traffic-violat-prod-trafficviolation-oqe5ed.mo5.mogenius.io/
+- Test the service: It will open the familiar Swaggr UI and you can test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
 
-
-<!-- - Test the service: It will open the familiar Swaggr UI and you can test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
-
-<img src = "./imgs/aws">
+<!-- <img src = "./imgs/aws">
 
 Phew! All done. -->
 
