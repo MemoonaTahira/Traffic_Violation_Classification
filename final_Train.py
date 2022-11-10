@@ -18,7 +18,7 @@ import wget
 import json
 
 
-# wget.download("https://github.com/MemoonaTahira/Traffic_Violation_Classification/releases/download/latest/cleaned_traffic_violations.csv", out = "cleaned_traffic_violations.csv")
+wget.download("https://github.com/MemoonaTahira/Traffic_Violation_Classification/releases/download/latest/cleaned_traffic_violations.csv", out = "cleaned_traffic_violations.csv")
 
 
 df = pd.read_csv("cleaned_traffic_violations.csv")
@@ -47,8 +47,9 @@ splits = [x_train_full, x_train, x_val, x_test]
 for split in splits:
         split.reset_index(drop=True, inplace=True)
 
-# creating model pipeline to impute missing values, scale numerical feature, reduce dimaensionality of categorical variables (keeping a maximum of 30 categories in each feature) and and OHE encode the final categories, and then selecting best 100 features based on mutual information classif score:
-
+# creating model pipeline to impute missing values, scale numerical feature, reduce dimaensionality of categorical 
+# variables (keeping a maximum of 30 categories in each feature) and and OHE encode the final categories, 
+# and then selecting best 100 features based on mutual information classif score:
 def create_model_pipeline(use_cat_OHE = False):
 
     categorical_columns = x_train_full.select_dtypes(include=["object_", "category"]).columns.tolist()
