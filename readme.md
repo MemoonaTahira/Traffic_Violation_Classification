@@ -62,7 +62,7 @@ Name: violation_type, dtype: float64
 Since sero is not even 0.01 of the dataset, it is combined with esero, which itself it the minority class at about 5%. We still have a class imbalance but it is manageable as just as seen below:
 
 <p align="center">
-<img src = "./imgs/class_imbalance.png" width=50% height = 50%>
+<img src = "./imgs/class_imbalance.png" width=40% height = 40%>
 </p>
 
 # Methodology
@@ -81,7 +81,7 @@ Full workflow [here](./TrafficViolation_Clean_EDA%20final.ipynb) in this jupyter
 
 
 <p align="center">
-<img src="./imgs/signal.jpg" width = 30% height= 30% />
+<img src="./imgs/signal.jpg" width =30% height=15%>
 </p>
 
 
@@ -294,7 +294,7 @@ Test it using same steps as before from [here](#5-using-swagger-ui-once-the-serv
 - You should see something like this:
 
 <p align="center">
-<img src = "./imgs/mogenius_service_status.jpg" width = 80%, height= 80%>
+<img src = "./imgs/mogenius_service_status.jpg" width = 70%, height= 70%>
 </p>
 
 - Click on **"HostName"** in the top right, and click on External domain, and it should be up and running here:
@@ -302,13 +302,13 @@ Test it using same steps as before from [here](#5-using-swagger-ui-once-the-serv
 - Test the service: It will open the familiar Swaggr UI and you can test it using same steps as before from [here](#5-using-swagger-ui-once-the-service-is-runnnig-locally)
 
 <p align="center">
-<img src = "./imgs/mogenius_deployed_swagger.jpg" width = 80%, height= 80%>
+<img src = "./imgs/mogenius_deployed_swagger.jpg" width = 70%, height= 70%>
 </p>
  
 - The response:
 
 <p align="center">
-<img src = "./imgs/mogenius_prediction.jpg" width = 80%, height= 80%>
+<img src = "./imgs/mogenius_prediction.jpg" width = 70%, height= 70%>
 </p>
 
 All done. :)
