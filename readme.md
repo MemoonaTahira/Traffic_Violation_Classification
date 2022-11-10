@@ -1,6 +1,15 @@
 # Traffic Violation Type Prediction Service
 
+
+
 Project done in partial fulfilment for the certification of MLZoomcamp2022 by DataTalks.Club. Details can be found [here](https://github.com/alexeygrigorev/mlbookcamp-code/blob/master/course-zoomcamp/cohorts/2022/projects.md#midterm-project).
+
+
+Click on the image to test the service:
+
+<p align="center">
+  <a href="https://traffic-violat-prod-trafficviolation-seanb6.mo5.mogenius.io/#/Service%20APIs/traffic_violation_classifier__classify"><img src="./imgs/mogenius.png" height="50" /></a>
+</p>
 
 # Problem
 
@@ -66,7 +75,16 @@ Once we have a cleaned dataset, we train it on fine-tuned linear and tree based 
 
 Finally, the model is containerized with BentoML and deployed as a classification service to predict the type of traffic violation.
 
+
 Full workflow [here](./TrafficViolation_Clean_EDA%20final.ipynb) in this jupyter notebook.
+
+
+
+<p align="center">
+<img src="./imgs/signal.jpg" width = 40% height= 40% />
+</p>
+
+
 
 # Reproducibility
 
@@ -88,6 +106,10 @@ Using the newly created conda environement, explore the notebook for cleaning, E
 
 Have a look at model pipelines (Logistic Regression, Random Forest and XGBoost) and detailed results [here](./results.md).
 
+<p align="center">
+  <img src="./imgs/result-logo.png" height="50" /></a>
+</p>
+
 ## 3. Train the final model:
 
 Using the same environment as before, i.e. traffic_classify:
@@ -106,7 +128,7 @@ The first two are for reference to avoid complete retraining, but the last model
 
 Check that your model saved correctly by running `bentoml models list`
 
-## 4. (Optional) Build the BentoML model and serve it locally:
+<!-- ## 4. (Optional) Build the BentoML model and serve it locally:
 
 Run from terminal with conda env traffic_classify activated:
 
@@ -114,9 +136,9 @@ Run from terminal with conda env traffic_classify activated:
 bentoml serve service.py:svc --reload
 ```
 
-This step tests the bentoML model before converting it to a service. This step is great for development as the service automatically keep reloading to reflect any changes.
+This step tests the bentoML model before converting it to a service. This step is great for development as the service automatically keep reloading to reflect any changes. -->
 
-## 5. Build the BentoML service and serve it locally:
+## 4. Build the BentoML service and serve it locally:
 
 - First, get list of models stored in the bentoml models directory
 
@@ -144,7 +166,7 @@ This step tests the bentoML model before converting it to a service. This step i
 
 - Now you can test your bentoML service now running a classification service locally as explained in next step.
 
-## 6. Using Swagger UI once the service is runnnig locally:
+## 5. Using Swagger UI once the service is runnnig locally:
 
 Go to any browser and open this link: 0.0.0.0:3000 OR localhost:3000
 
@@ -196,15 +218,15 @@ You should see a result like this:
 <img src = "./imgs/swagger3.jpg" width=80%>
 </p>
 
-## 7. Do load testing with locust:
+<!-- ## 6. Do load testing with locust:
 
 open another tab in your browser while the `bentoml serve --production` command is running from terminal and run:
 
 `locust -H <http://localhost:3000>`
 
-Do load testing if you want to see if the model can handle appopriate load before deploying it as service to cloud.
+Do load testing if you want to see if the model can handle appopriate load before deploying it as service to cloud. -->
 
-## 8. Dockerize the bentoML service:
+## 6. Dockerize the bentoML service:
 
 Start your docker service:
 `sudo dockerd`
@@ -224,13 +246,13 @@ It will take a moment to build the container. Once it is done, serve the contain
 
 `docker run -it --rm -p 3000:3000 traffic_violation_classifier:ga4yxpdbbc676aav serve`
 
-Test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
+Test it using same steps as before from [here](#5-using-swagger-ui-once-the-service-is-runnnig-locally)
 
-## 9. Deployment of bentoML as a service to Cloud:
+## 7. Deployment of bentoML as a service to Cloud:
 
-I will deploy my docker image (traffic_violation_classifier:ga4yxpdbbc676aav) from step 8 to Mobegeniu, but for that I need to first push my image to DockerHub.
+I will deploy my docker image (traffic_violation_classifier:ga4yxpdbbc676aav) from step 8 to Mogenius, but for that I need to first push my image to DockerHub.
 
-## 10: Setting up DockerHub:
+## 8: Setting up DockerHub:
 
 - Create an account and verify it
 - Choose free plan and create a repository with a name that reflects your service, e.g. traffic_violation_classification
@@ -248,7 +270,7 @@ I will deploy my docker image (traffic_violation_classifier:ga4yxpdbbc676aav) fr
 `docker push memoonatahira/traffic_violation_classification:deployment_testing`
 - It'll take a moment and you'll be done!
 
-## 11. Pull bentoML service docker image from DockerHub and run it:
+## 9. Pull bentoML service docker image from DockerHub and run it locally:
 
 You can skip all the previous steps, and just pull the bentoML image from DockerHub and build a container and run it via docker like this:
 
@@ -257,7 +279,7 @@ docker pull memoonatahira/traffic_violation_classification:deployment_testing
 docker run -it --rm -p 3000:3000 memoonatahira/traffic_violation_classification:deployment_testing serve --production
 ```
 
-Test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
+Test it using same steps as before from [here](#5-using-swagger-ui-once-the-service-is-runnnig-locally)
 
 ## 12. Deploy the BentoML container to Mogenius:
 
@@ -278,7 +300,7 @@ Test it using same steps as before from [here](#6-using-swagger-ui-once-the-serv
 
 - Click on **"HostName"** in the top right, and click on External domain, and it should be up and running here:
  <https://traffic-violat-prod-trafficviolation-oqe5ed.mo5.mogenius.io/>
-- Test the service: It will open the familiar Swaggr UI and you can test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
+- Test the service: It will open the familiar Swaggr UI and you can test it using same steps as before from [here](#5-using-swagger-ui-once-the-service-is-runnnig-locally)
 
 <p align="center">
 <img src = "./imgs/mogenius_deployed_swagger.jpg" width = 80%, height= 80%>
