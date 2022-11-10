@@ -9,7 +9,7 @@
 
 ## XGBoost Classifier:
 
-<img src = ./imgs/xgboost_model_pipeline.jpg>
+<img src = ./imgs/XGBoost_model_pipeline.jpg>
 
 
 
