@@ -62,7 +62,7 @@ Name: violation_type, dtype: float64
 Since sero is not even 0.01 of the dataset, it is combined with esero, which itself it the minority class at about 5%. We still have a class imbalance but it is manageable as just as seen below:
 
 <p align="center">
-<img src = "./imgs/class_imbalance.png" width=50% height = 80%>
+<img src = "./imgs/class_imbalance.png" width=50% height = 50%>
 </p>
 
 # Methodology
@@ -81,7 +81,7 @@ Full workflow [here](./TrafficViolation_Clean_EDA%20final.ipynb) in this jupyter
 
 
 <p align="center">
-<img src="./imgs/signal.jpg" width = 40% height= 40% />
+<img src="./imgs/signal.jpg" width = 30% height= 30% />
 </p>
 
 
@@ -171,9 +171,9 @@ Go to any browser and open this link: 0.0.0.0:3000 OR localhost:3000
 
 It will open the Swagger UI which looks like this:
 
-<div style="text-align:center">
-<img src = "./imgs/swagger1.jpg" width = 80% >
-</div>
+<p align="center">
+  <img src = "./imgs/swagger1.jpg" width = 80% >
+</p>
 
 Click on "try it out" and paste the sample test user given below and click execute:
 
