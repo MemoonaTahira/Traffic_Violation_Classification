@@ -266,7 +266,7 @@ Test it using same steps as before from [here](#6-using-swagger-ui-once-the-serv
 - Click on **"HostName"** in the top right, and click on External domain, and it should be up and running.
 
 
-<-- - Test the service: It will open the familiar Swaggr UI and you can test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
+<!-- - Test the service: It will open the familiar Swaggr UI and you can test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
 
 <img src = "./imgs/aws">
 
