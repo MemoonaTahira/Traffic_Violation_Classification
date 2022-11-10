@@ -21,7 +21,9 @@ This dataset is very untidy, so a cleaned version after doing cleaning and EDA i
 
 These are dataset stats after initial cleaning and feature engineering (basically everything that needs to be done before train-test split).
 
-<img src = "./imgs/dataset_stats.jpg">
+<div style="text-align:center">
+    <img src = "./imgs/dataset_stats.jpg">
+</div>
 
 The dimensions of the dataset are: `Dataframe dimensions: (1010737, 28)`
 
@@ -50,7 +52,9 @@ Name: violation_type, dtype: float64
 
 Since sero is not even 0.01 of the dataset, it is combined with esero, which itself it the minority class at about 5%. We still have a class imbalance but it is manageable as just as seen below:
 
-<img src = "./imgs/class_imbalance.png" width=50%>
+<div style="text-align:center">
+<img src = "./imgs/class_imbalance.png" width=50% height = 80%>
+</div>
 
 # Methodology
 
@@ -114,29 +118,31 @@ This step tests the bentoML model before converting it to a service. This step i
 
 ## 5. Build the BentoML service and serve it locally:
 
-First, get list of models stored in the bentoml models directory
+- First, get list of models stored in the bentoml models directory
 
 `bentoml models list`
 
-Get name and tag of the model you want, e.g. in my case:
+- Get name and tag of the model you want, e.g. in my case:
 
 `"traffic_violation_classification:c3zxrptavo3q4vhb"`
 
-Use you own model name and tag in [service.py](./service.py) in line 9, and make sure to use it with quotes included, i.e. `"traffic_violation_classification:c3zxrptavo3q4vhb"`
+- Use you own model name and tag in [service.py](./service.py) in line 9, and make sure to use it with quotes included, i.e. `"traffic_violation_classification:c3zxrptavo3q4vhb"`
 
-Build the bentoML service.
+- Build the bentoML service.
 
 `bentoml build`
 
-And you'll see this:
+- And you'll see this:
 
-<img src = "./imgs/bentobuild.jpg">
+<div style="text-align:center">
+<img src = "./imgs/bentobuild.jpg" width=80%>
+</div>
 
-Serve the container by running this is the terminal:
+- Serve the container by running this is the terminal:
 
 `bentoml serve`
 
-Now you can test your bentoML service now running a classification service locally.
+- Now you can test your bentoML service now running a classification service locally as explained in next step.
 
 ## 6. Using Swagger UI once the service is runnnig locally:
 
@@ -144,7 +150,9 @@ Go to any browser and open this link: 0.0.0.0:3000 OR localhost:3000
 
 It will open the Swagger UI which looks like this:
 
-<img src = "./imgs/swagger1.jpg">
+<div style="text-align:center">
+<img src = "./imgs/swagger1.jpg" width = 80% >
+</div>
 
 Click on "try it out" and paste the sample test user given below and click execute:
 
@@ -178,11 +186,14 @@ Click on "try it out" and paste the sample test user given below and click execu
     "car_age": 28.0
     }
 
-<img src = "./imgs/swagger2.jpg">
-
+<div style="text-align:center">
+<img src = "./imgs/swagger2.jpg" width=80%>
+</div>
 You should see a result like this:
 
-<img src = "./imgs/swagger3.jpg">
+<div style="text-align:center">
+<img src = "./imgs/swagger3.jpg" width=80%>
+</div>
 
 ## 7. Do load testing with locust:
 
@@ -259,14 +270,20 @@ Test it using same steps as before from [here](#6-using-swagger-ui-once-the-serv
 - Add 3000 to HTTPS port at the very end and hit **"Create Service"**
 - Increase the resources (I set all reseources to maximum) for your service and click on **"Save Changes"**
 - You should see something like this:
-
+<div style="text-align:center">
 <img src = "./imgs/mogenius_service_status.jpg" width = 80%, height= 80%>
+</div>
 
 - Click on **"HostName"** in the top right, and click on External domain, and it should be up and running here:
  <https://traffic-violat-prod-trafficviolation-oqe5ed.mo5.mogenius.io/>
 - Test the service: It will open the familiar Swaggr UI and you can test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
 
+<div style="text-align:center">
 <img src = "./imgs/mogenius_deployed_swagger.jpg" width = 80%, height= 80%>
+</div>
+ 
+- The response:
+
 
 All done. :)
 
