@@ -21,9 +21,9 @@ This dataset is very untidy, so a cleaned version after doing cleaning and EDA i
 
 These are dataset stats after initial cleaning and feature engineering (basically everything that needs to be done before train-test split).
 
-<div style="text-align:center">
+<p align="center">
     <img src = "./imgs/dataset_stats.jpg">
-</div>
+</p>
 
 The dimensions of the dataset are: `Dataframe dimensions: (1010737, 28)`
 
@@ -52,9 +52,9 @@ Name: violation_type, dtype: float64
 
 Since sero is not even 0.01 of the dataset, it is combined with esero, which itself it the minority class at about 5%. We still have a class imbalance but it is manageable as just as seen below:
 
-<div style="text-align:center">
+<p align="center">
 <img src = "./imgs/class_imbalance.png" width=50% height = 80%>
-</div>
+</p>
 
 # Methodology
 
@@ -134,13 +134,13 @@ This step tests the bentoML model before converting it to a service. This step i
 
 - And you'll see this:
 
-<div style="text-align:center">
+<p align="center">
 <img src = "./imgs/bentobuild.jpg" width=80%>
-</div>
+</p>
 
 - Serve the container by running this is the terminal:
 
-`bentoml serve`
+`bentoml serve --production`
 
 - Now you can test your bentoML service now running a classification service locally as explained in next step.
 
@@ -186,14 +186,15 @@ Click on "try it out" and paste the sample test user given below and click execu
     "car_age": 28.0
     }
 
-<div style="text-align:center">
+<p align="center">
 <img src = "./imgs/swagger2.jpg" width=80%>
-</div>
+</p>
+
 You should see a result like this:
 
-<div style="text-align:center">
+<p align="center">
 <img src = "./imgs/swagger3.jpg" width=80%>
-</div>
+</p>
 
 ## 7. Do load testing with locust:
 
@@ -253,7 +254,7 @@ You can skip all the previous steps, and just pull the bentoML image from Docker
 
 ```
 docker pull memoonatahira/traffic_violation_classification:deployment_testing
-docker run -it --rm -p 3000:3000 memoonatahira/traffic_violation_classification:deployment_testing serve
+docker run -it --rm -p 3000:3000 memoonatahira/traffic_violation_classification:deployment_testing serve --production
 ```
 
 Test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
@@ -265,25 +266,29 @@ Test it using same steps as before from [here](#6-using-swagger-ui-once-the-serv
 - Create a cloud space with a reflective name, e.g. TrafficViolation
 - Choose Create from docker image from any registry
 - Give the service a name, and then add address of your image. E.g.
-`memoonatahira/traffic_violation_classification:deployment_testing serve`
+`memoonatahira/traffic_violation_classification:deployment_testing`
 - Select **Stage** as "production" and leave everything as is
 - Add 3000 to HTTPS port at the very end and hit **"Create Service"**
 - Increase the resources (I set all reseources to maximum) for your service and click on **"Save Changes"**
 - You should see something like this:
-<div style="text-align:center">
+
+<p align="center">
 <img src = "./imgs/mogenius_service_status.jpg" width = 80%, height= 80%>
-</div>
+</p>
 
 - Click on **"HostName"** in the top right, and click on External domain, and it should be up and running here:
  <https://traffic-violat-prod-trafficviolation-oqe5ed.mo5.mogenius.io/>
 - Test the service: It will open the familiar Swaggr UI and you can test it using same steps as before from [here](#6-using-swagger-ui-once-the-service-is-runnnig-locally)
 
-<div style="text-align:center">
+<p align="center">
 <img src = "./imgs/mogenius_deployed_swagger.jpg" width = 80%, height= 80%>
-</div>
+</p>
  
 - The response:
 
+<p align="center">
+<img src = "./imgs/mogenius_prediction.jpg" width = 80%, height= 80%>
+</p>
 
 All done. :)
 
