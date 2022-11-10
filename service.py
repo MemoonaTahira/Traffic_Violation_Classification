@@ -8,7 +8,7 @@ from typing import Dict, Any
 from pydantic import BaseModel
 #import sklearn
 
-model_name_and_tag = "traffic_violation_classification:wvsmj6dbeol4qaav"
+model_name_and_tag = "traffic_violation_classification:rdkqvitbicqmeaav"
 # pydantic class for data validation
 class TrafficViolationApp(BaseModel):
     subagency: str
