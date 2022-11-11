@@ -100,7 +100,7 @@ conda create --name traffic_classify --file requirements.txt
 
 (P.S. If you want to use a pip environment, you can also use [pip-requirement.txt](./pip_requirements.txt) to install it.)
 
-Using the newly created conda environement, explore the notebook for cleaning, EDA feature engineering and selecting best model, which is the [TrafficViolation_Clean_EDA.ipynb](./TrafficViolation_Clean_EDA.ipynb)
+Using the newly created conda environement, explore the notebook for cleaning, EDA feature engineering and selecting best model, which is the [TrafficViolation_Clean_EDA.ipynb](./TrafficViolation_Clean_EDA_final.ipynb)
 
 ## 2. Analysis and Results:
 
@@ -298,7 +298,7 @@ Test it using same steps as before from [here](#5-using-swagger-ui-once-the-serv
 </p>
 
 - Click on **"HostName"** in the top right, and click on External domain, and it should be up and running here:
- <https://traffic-violat-prod-trafficviolation-oqe5ed.mo5.mogenius.io/>
+ <https://traffic-violat-prod-trafficviolation-seanb6.mo5.mogenius.io/#/Service%20APIs/traffic_violation_classifier__classify/>
 - Test the service: It will open the familiar Swaggr UI and you can test it using same steps as before from [here](#5-using-swagger-ui-once-the-service-is-runnnig-locally)
 
 <p align="center">
