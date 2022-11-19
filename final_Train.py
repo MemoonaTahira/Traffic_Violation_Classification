@@ -66,7 +66,7 @@ def create_model_pipeline(use_cat_OHE = False):
     categorical_imputer = SimpleImputer(strategy='most_frequent')
     categorical_OHE_encoder = OneHotEncoder(max_categories = 30, drop = None, sparse=True, handle_unknown="ignore")
 
-    # deciding whether to encode categroical feature as OHE or ordinal features
+    # deciding whether to encode categroical feature or not
     if use_cat_OHE == True:
         categorical_transformer = Pipeline(
             steps = [("categorical_imputer", categorical_imputer),("OHE_encoder", categorical_OHE_encoder),
@@ -85,8 +85,6 @@ def create_model_pipeline(use_cat_OHE = False):
         verbose = True, remainder='passthrough', n_jobs = -1
     )
     
-    # toggling feature selection on and off:
-
     model_pipeline = Pipeline(
         steps = [
             ('preprocess', preprocess),
