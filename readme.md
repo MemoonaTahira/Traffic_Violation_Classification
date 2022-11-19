@@ -16,7 +16,7 @@ Click on the image to test the service:
 Classify a traffic violation into 4 categories based on the level, severity and type of violation. The 4 different types of violations are:
 
 - **Citation:** A written record of something wrong while operating a vehicle or while parked. Examples: Speeding tickets, Running a red light/stop sign, Driving under the influence (DUI), Failure to signal
-- **Warning:** A warning is issued by the officer is a statement that the motorist has committed some offense, but is being spared the actual citation. Officers use their own discretion whether to issue a citation or warning.
+- **Warning:** A warning issued by an officer is a statement that the motorist has committed some offense, but is being spared the actual citation. Officers use their own discretion whether to issue a citation or warning.
 - **ESERO:** Electronic Safety Equipment Repair Order
 - **SERO:** Safety Equipment Repair Order
 
@@ -26,7 +26,7 @@ The data is from Maryland Capitol Police Department.The mojor challenge of the p
 
 The original dataset can be found [here](https://www.kaggle.com/datasets/felix4guti/traffic-violations-in-usa?select=Traffic_Violations.csv) on Kaggle.
 
-This dataset is very untidy, so a cleaned version after doing cleaning and EDA in this [notebook](./TrafficViolation_Clean_EDA%20final.ipynb) can be found [here](https://github.com/MemoonaTahira/Traffic_Violation_Classification/releases/download/latest/cleaned_traffic_violations.csv). Dataset download links are added to all code file.
+This dataset is very untidy, so a cleaned version after doing cleaning and EDA in this [notebook](./TrafficViolation_Clean_EDA%20final.ipynb) can be found [here](https://github.com/MemoonaTahira/Traffic_Violation_Classification/releases/tag/latest). Dataset download links are added to all code file.
 
 These are dataset stats after initial cleaning and feature engineering (basically everything that needs to be done before train-test split).
 
@@ -39,12 +39,13 @@ The dimensions of the dataset are: `Dataframe dimensions: (1010737, 28)`
 **The major work done on features:**
 
 - Removing duplicates
-- Reomving description of location in words(whose logitude/latitude are given), longitude, latitude and geolocation (which was a tuple of logitude and latitude), in favour of subagency, which basically denotes 7 zones where traffic violations were recorded. In absense of subagency, geolocation would have to be binned into zones.
+- Removing description of location in words, longitude, latitude, and geolocation (which was a tuple of logitude and latitude), in favour of subagency, which basically denotes 7 zones where traffic violations were recorded. In absense of subagency, geolocation would have to be binned into zones.
 - Removing features such as agency and accident that had only one value/category.
 - Lowercasing column names and string variable
 - Converting bool columns to 0 and 1
+- Comparing names of US states in multiple columns against an offical list of names of 51 states, and adding any mislabelled state names to an "unk" category ("unk" meaning unknown).
 - Converting date to seasons by binning months, called season_of_stop
-- Convrting time to portion of day called hour_of_stop, e.g. late night or afternoon, using binning on hours.
+- Converting time to portion of day called hour_of_stop, e.g. late night or afternoon, using binning on hours.
 - Removing anamoly from year of car, e.g. year below 0 or beyond 2022, and converting it to car_age
 
 **On target variable:**
@@ -71,12 +72,12 @@ The methodology followed is CRISP-DM, with roughly the same outline as week 1-7 
 
 We start with data cleaing and EDA, and then feature engineering and feature selection, while doing doing missing value imputations, scaling, one-hot encoding and dimensionality reduction.
 
-Once we have a cleaned dataset, we train it on fine-tuned linear and tree based models and use validation set to select best model. The best model is the trained on full train data, and tested one last time on withheld dataset.
+Once we have a cleaned dataset, we train it on fine-tuned linear and tree based models and use validation set to select best model. The best model is then trained on full train data, and tested one last time on withheld dataset.
 
-Finally, the model is containerized with BentoML and deployed as a classification service to predict the type of traffic violation.
+Finally, the model is containerized with BentoML and deployed as a classification service to Mogenius to predict the type of traffic violation.
 
 
-Full workflow [here](./TrafficViolation_Clean_EDA%20final.ipynb) in this jupyter notebook.
+Full cleaning, EDA and training workflow [here](./TrafficViolation_Clean_EDA%20final.ipynb) in this jupyter notebook.
 
 
 
@@ -92,13 +93,13 @@ The whole project is reproducible, ideally via bentoML. Here are details how to 
 
 ## 1. Create conda environment:
 
-Create a conda environement from requirement.txt file using the requirement.txt file [here](./requirements.txt):
+Create a conda environement from requirements.txt file using the requirements.txt file [here](./requirements.txt):
 
 ```
 conda create --name traffic_classify --file requirements.txt
 ```
 
-(P.S. If you want to use a pip environment, you can also use [pip-requirement.txt](./pip_requirements.txt) to install it.)
+(P.S. If you want to use a pip environment, you can also use [pip-requirements.txt](./pip_requirements.txt) to install it.)
 
 Using the newly created conda environement, explore the notebook for cleaning, EDA feature engineering and selecting best model, which can be found [here](./TrafficViolation_Clean_EDA%20final.ipynb).
 
@@ -123,9 +124,9 @@ It will save these items:
 - sklearn_pipeline.pkl
 - bentoML model with both the xgboost final model and custom pipeline object
 
-The first two are for reference to avoid complete retraining, but the last model is the one we will use throughout in the next steps.
+The first two are for reference to avoid complete retraining later on in case we need original saved model, but the last bentoML model is the one we will use throughout in the next steps.
 
-Check that your model saved correctly by running `bentoml models list`
+Check that your model is saved correctly by running `bentoml models list`
 
 <!-- ## 4. (Optional) Build the BentoML model and serve it locally:
 
@@ -163,7 +164,7 @@ This step tests the bentoML model before converting it to a service. This step i
 
 `bentoml serve --production`
 
-- Now you can test your bentoML service now running a classification service locally as explained in next step.
+- You can test your bentoML service now running a classification service locally as explained in next step.
 
 ## 5. Using Swagger UI once the service is runnnig locally:
 
@@ -243,13 +244,13 @@ bentoml containerize traffic_violation_classifier:ga4yxpdbbc676aav
 
 It will take a moment to build the container. Once it is done, serve the container locally:
 
-`docker run -it --rm -p 3000:3000 traffic_violation_classifier:ga4yxpdbbc676aav serve`
+`docker run -it --rm -p 3000:3000 traffic_violation_classifier:ga4yxpdbbc676aav serve --production`
 
 Test it using same steps as before from [here](#5-using-swagger-ui-once-the-service-is-runnnig-locally)
 
 ## 7. Deployment of bentoML as a service to Cloud:
 
-I will deploy my docker image (traffic_violation_classifier:ga4yxpdbbc676aav) from step 8 to Mogenius, but for that I need to first push my image to DockerHub.
+I will deploy my docker image (traffic_violation_classifier:ga4yxpdbbc676aav) from step 6 to Mogenius, but for that I need to first push my image to DockerHub.
 
 ## 8: Setting up DockerHub:
 
@@ -282,7 +283,7 @@ Test it using same steps as before from [here](#5-using-swagger-ui-once-the-serv
 
 ## 12. Deploy the BentoML container to Mogenius:
 
-- Create an account on Mobegenius: <https://studio.mogenius.com/user/registration>
+- Create an account on Mogenius: <https://studio.mogenius.com/user/registration>
 - Verfiy your account and select the free plan
 - Create a cloud space with a reflective name, e.g. TrafficViolation
 - Choose Create from docker image from any registry
