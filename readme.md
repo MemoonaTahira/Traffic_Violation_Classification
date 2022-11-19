@@ -252,7 +252,7 @@ Test it using same steps as before from [here](#5-using-swagger-ui-once-the-serv
 
 I will deploy my docker image (traffic_violation_classifier:ga4yxpdbbc676aav) from step 6 to Mogenius, but for that I need to first push my image to DockerHub.
 
-## 8: Setting up DockerHub:
+## 8. Setting up DockerHub:
 
 - Create an account and verify it
 - Choose free plan and create a repository with a name that reflects your service, e.g. traffic_violation_classification
@@ -281,7 +281,7 @@ docker run -it --rm -p 3000:3000 memoonatahira/traffic_violation_classification:
 
 Test it using same steps as before from [here](#5-using-swagger-ui-once-the-service-is-runnnig-locally)
 
-## 12. Deploy the BentoML container to Mogenius:
+## 10. Deploy the BentoML image to Mogenius:
 
 - Create an account on Mogenius: <https://studio.mogenius.com/user/registration>
 - Verfiy your account and select the free plan
